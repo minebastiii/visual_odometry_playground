@@ -1,0 +1,49 @@
+Bootstrap: docker
+From: osrf/ros:noetic-desktop-full
+
+%environment
+    export ROS_HOSTNAME=localhost
+    export ROS_MASTER_URI=http://localhost:11311
+
+%files
+    # fixed files
+    ./fixed_files/sophus/so2.cpp /so2.cpp
+
+%post
+    # update
+    apt-get -y update
+    apt-get -y upgrade
+
+    # util
+    apt-get install -y wget vim python3 python3-pip git libtool ros-noetic-catkin ros-noetic-cmake-modules
+
+    # deps
+    pip3 install -U catkin_tools
+    pip3 install vcstool
+    apt-get -y install libglew-dev libopencv-dev libyaml-cpp-dev libsuitesparse-dev
+
+    # clone, fix and compile sophus
+    mkdir /workspace && cd /workspace
+    git clone https://github.com/strasdat/Sophus.git
+    cd Sophus
+    git checkout a621ff
+    rm -r /workspace/Sophus/sophus/so2.cpp
+    cp /so2.cpp /workspace/Sophus/sophus/so2.cpp
+    rm /so2.cpp
+    mkdir build && cd build
+    cmake ..
+    make -j 8
+
+    # clone and compile fast
+    cd /workspace
+    git clone https://github.com/uzh-rpg/fast.git
+    cd fast
+    mkdir build && cd build
+    cmake ..
+    make -j 8
+
+%runscript
+    bash
+
+%labels
+    Author Bastian Zumbusch
