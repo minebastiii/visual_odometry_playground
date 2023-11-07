@@ -15,6 +15,7 @@ From: ros_base.sif
     ./fixed_files/rpg_vikit/homography.cpp /homography.cpp
     ./fixed_files/rpg_vikit/img_align.cpp /img_align.cpp
     ./fixed_files/rpg_vikit/pinhole_camera.cpp /pinhole_camera.cpp
+    ./fixed_files/rpg_vikit/output_helper.cpp /output_helper.cpp
 
     # custom configs
     ./custom_config/live.launch /live.launch
@@ -74,6 +75,10 @@ From: ros_base.sif
     rm /svo_ws/src/rpg_vikit/vikit_common/src/img_align.cpp
     cp /img_align.cpp /svo_ws/src/rpg_vikit/vikit_common/src/img_align.cpp
     rm /img_align.cpp
+    # -
+    rm /svo_ws/src/rpg_vikit/vikit_ros/src/output_helper.cpp
+    cp /output_helper.cpp /svo_ws/src/rpg_vikit/vikit_ros/src/output_helper.cpp
+    rm /output_helper.cpp
 
     # add custom live.launch for svo_ros
     cd /svo_ws/src/rpg_svo/svo_ros/launch
