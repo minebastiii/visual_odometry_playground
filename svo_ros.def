@@ -32,7 +32,7 @@ From: ros_base.sif
 
     # init catkin workspace and clone vikit and svo to /svo_ws
     mkdir /svo_ws && cd /svo_ws
-    catkin config --init --mkdirs --extend /opt/ros/noetic --cmake-args -DCMAKE_BUILD_TYPE=Release -DEIGEN3_INCLUDE_DIR=/usr/include/eigen3
+    catkin config --init --mkdirs --extend /opt/ros/noetic --cmake-args -DCMAKE_BUILD_TYPE=Release -DEIGEN3_INCLUDE_DIR=/usr/include/eigen3 -DSophus_DIR=/workspace/Sophus/build
     cd src
     git clone https://github.com/uzh-rpg/rpg_vikit.git
     git clone https://github.com/uzh-rpg/rpg_svo.git
