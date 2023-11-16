@@ -1,0 +1,68 @@
+Bootstrap: localimage
+From: ros_base.sif
+
+%files
+    # fixed files
+    # rqt_ptam
+    ./fixed_files/ethzasl_ptam/rqt_ptam/CMakeLists.txt /CMakeLists.txt
+    # ptam
+    ./fixed_files/ethzasl_ptam/ptam/AstDetector.h /AstDetector.h
+    ./fixed_files/ethzasl_ptam/ptam/Tracker.cc /Tracker.cc
+    ./fixed_files/ethzasl_ptam/ptam/System.cc /System.cc
+    ./fixed_files/ethzasl_ptam/ptam/RemotePtam.cpp /RemotePtam.cpp
+    ./fixed_files/ethzasl_ptam/ptam/agast_corner_detect.h /agast_corner_detect.h
+
+%post
+    # install qt4 and uninstall qt5
+    apt-get update
+    apt-get install -y software-properties-common 
+    add-apt-repository ppa:rock-core/qt4
+    apt-get update
+    apt-get remove -y qtcreator qt5*
+    apt-get install -y libqtcore4 libqtwebkit4 qt4-dev-tools qt4-qmake libqt4-declarative
+
+    # init catkin workspace and clone ptam to /ptam_ws
+    mkdir /ptam_ws && cd /ptam_ws
+    catkin config --init --mkdirs --extend /opt/ros/noetic --cmake-args -DCMAKE_BUILD_TYPE=Release 
+
+    # install ptam
+    cd src
+    git clone https://github.com/ethz-asl/ethzasl_ptam
+
+    # fix files
+    # rqt_ptam
+    rm /ptam_ws/src/ethzasl_ptam/rqt_ptam/CMakeLists.txt
+    cp /CMakeLists.txt /ptam_ws/src/ethzasl_ptam/rqt_ptam/CMakeLists.txt
+    rm /CMakeLists.txt
+    # ptam
+    rm /ptam_ws/src/ethzasl_ptam/ptam/thirdparty/agast/include/agast/AstDetector.h
+    cp /AstDetector.h /ptam_ws/src/ethzasl_ptam/ptam/thirdparty/agast/include/agast/AstDetector.h
+    rm /AstDetector.h
+    rm /ptam_ws/src/ethzasl_ptam/ptam/src/Tracker.cc
+    cp /Tracker.cc /ptam_ws/src/ethzasl_ptam/ptam/src/Tracker.cc
+    rm /Tracker.cc
+    rm /ptam_ws/src/ethzasl_ptam/ptam/src/System.cc
+    cp /System.cc /ptam_ws/src/ethzasl_ptam/ptam/src/System.cc
+    rm /System.cc
+    rm /ptam_ws/src/ethzasl_ptam/ptam/src/RemotePtam.cpp
+    cp /RemotePtam.cpp /ptam_ws/src/ethzasl_ptam/ptam/src/RemotePtam.cpp
+    rm /RemotePtam.cpp
+    rm /ptam_ws/src/ethzasl_ptam/ptam/thirdparty/agast/include/agast/agast_corner_detect.h
+    cp /agast_corner_detect.h /ptam_ws/src/ethzasl_ptam/ptam/thirdparty/agast/include/agast/agast_corner_detect.h
+    rm /agast_corner_detect.h
+
+    # build catkin workspace
+    cd /ptam_ws
+    catkin build
+
+    # install usb_cam
+    apt-get install -y ros-noetic-usb-cam
+
+    # custom .bashrc
+    echo "source /ptam_ws/devel/setup.bash" >> /svo_bashrc
+
+%runscript
+    bash --rcfile /svo_bashrc
+
+%labels
+    Author Bastian Zumbusch
