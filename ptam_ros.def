@@ -12,6 +12,9 @@ From: ros_base.sif
     ./fixed_files/ethzasl_ptam/ptam/RemotePtam.cpp /RemotePtam.cpp
     ./fixed_files/ethzasl_ptam/ptam/agast_corner_detect.h /agast_corner_detect.h
 
+    # custom config
+    ./custom_config/ptam.launch /ptam_ws/src/ethzasl_ptam/ptam/launch/ptam.launch
+
 %post
     # install qt4 and uninstall qt5
     apt-get update
@@ -50,6 +53,11 @@ From: ros_base.sif
     rm /ptam_ws/src/ethzasl_ptam/ptam/thirdparty/agast/include/agast/agast_corner_detect.h
     cp /agast_corner_detect.h /ptam_ws/src/ethzasl_ptam/ptam/thirdparty/agast/include/agast/agast_corner_detect.h
     rm /agast_corner_detect.h
+
+    #custom config
+    rm /ptam_ws/src/ethzasl_ptam/ptam/launch/ptam.launch
+    cp /ptam.launch /ptam_ws/src/ethzasl_ptam/ptam/launch/ptam.launch
+    rm /ptam.launch
 
     # build catkin workspace
     cd /ptam_ws

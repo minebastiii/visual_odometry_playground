@@ -42,6 +42,9 @@ From: osrf/ros:noetic-desktop-full
     cmake ..
     make -j 8
 
+    # install usb_cam
+    apt-get install -y ros-noetic-usb-cam
+
 %runscript
     bash
 

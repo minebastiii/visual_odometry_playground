@@ -18,7 +18,7 @@ From: ros_base.sif
     ./fixed_files/rpg_vikit/output_helper.cpp /output_helper.cpp
 
     # custom configs
-    ./custom_config/live.launch /live.launch
+    ./custom_config/svo.launch /svo.launch
     ./custom_config/camera_pinhole.yaml /camera_pinhole.yaml
 
 %post
@@ -80,11 +80,10 @@ From: ros_base.sif
     cp /output_helper.cpp /svo_ws/src/rpg_vikit/vikit_ros/src/output_helper.cpp
     rm /output_helper.cpp
 
-    # add custom live.launch for svo_ros
-    cd /svo_ws/src/rpg_svo/svo_ros/launch
-    rm live.launch
-    cp /live.launch .
-    rm /live.launch
+    # add custom svo.launch for svo_ros
+    rm /svo_ws/src/rpg_svo/svo_ros/launch/live.launch
+    cp /svo.launch .
+    rm /svo.launch
 
     # add custom camera_pinhole.yaml config
     cd /svo_ws/src/rpg_svo/svo_ros/param/
@@ -94,9 +93,6 @@ From: ros_base.sif
 
     # build catkin workspace
     catkin build
-
-    # install usb_cam
-    apt-get install -y ros-noetic-usb-cam
 
     # custom .bashrc
     echo "source /svo_ws/devel/setup.bash" >> /svo_bashrc
