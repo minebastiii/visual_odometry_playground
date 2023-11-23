@@ -1,4 +1,5 @@
 /svo/*
 /ptam/*
+/testdata/*
 *.sif
 *.code-workspace

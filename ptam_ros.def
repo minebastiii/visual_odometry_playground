@@ -11,9 +11,12 @@ From: ros_base.sif
     ./fixed_files/ethzasl_ptam/ptam/System.cc /System.cc
     ./fixed_files/ethzasl_ptam/ptam/RemotePtam.cpp /RemotePtam.cpp
     ./fixed_files/ethzasl_ptam/ptam/agast_corner_detect.h /agast_corner_detect.h
+    # libcvd
+    ./fixed_files/ethzasl_ptam/libcvd/Makefile /Makefile
+    ./fixed_files/ethzasl_ptam/libcvd/glwindow.cc /glwindow.cc
 
     # custom config
-    ./custom_config/ptam.launch /ptam_ws/src/ethzasl_ptam/ptam/launch/ptam.launch
+    ./custom_config/ptam.launch /ptam.launch
 
 %post
     # install qt4 and uninstall qt5
@@ -41,6 +44,9 @@ From: ros_base.sif
     rm /ptam_ws/src/ethzasl_ptam/ptam/thirdparty/agast/include/agast/AstDetector.h
     cp /AstDetector.h /ptam_ws/src/ethzasl_ptam/ptam/thirdparty/agast/include/agast/AstDetector.h
     rm /AstDetector.h
+    rm /ptam_ws/src/ethzasl_ptam/ptam/thirdparty/agast/include/agast/agast_corner_detect.h
+    cp /agast_corner_detect.h /ptam_ws/src/ethzasl_ptam/ptam/thirdparty/agast/include/agast/agast_corner_detect.h
+    rm /agast_corner_detect.h
     rm /ptam_ws/src/ethzasl_ptam/ptam/src/Tracker.cc
     cp /Tracker.cc /ptam_ws/src/ethzasl_ptam/ptam/src/Tracker.cc
     rm /Tracker.cc
@@ -50,9 +56,19 @@ From: ros_base.sif
     rm /ptam_ws/src/ethzasl_ptam/ptam/src/RemotePtam.cpp
     cp /RemotePtam.cpp /ptam_ws/src/ethzasl_ptam/ptam/src/RemotePtam.cpp
     rm /RemotePtam.cpp
-    rm /ptam_ws/src/ethzasl_ptam/ptam/thirdparty/agast/include/agast/agast_corner_detect.h
-    cp /agast_corner_detect.h /ptam_ws/src/ethzasl_ptam/ptam/thirdparty/agast/include/agast/agast_corner_detect.h
-    rm /agast_corner_detect.h
+    # libcvd
+    cd /ptam_ws/src/ethzasl_ptam/ptam/thirdparty/libcvd
+    rm Makefile
+    cp /Makefile .
+    rm /Makefile
+    mkdir -p sources
+	git clone https://github.com/edrosten/libcvd.git sources
+	cd sources && git checkout 26bb46b9845383a4724a5e24db42dc27d41477d4
+	touch git_checkedout
+    cd cvd_src
+    rm glwindow.cc
+    cp /glwindow.cc .
+    rm /glwindow.cc
 
     #custom config
     rm /ptam_ws/src/ethzasl_ptam/ptam/launch/ptam.launch
@@ -62,9 +78,6 @@ From: ros_base.sif
     # build catkin workspace
     cd /ptam_ws
     catkin build
-
-    # install usb_cam
-    apt-get install -y ros-noetic-usb-cam
 
     # custom .bashrc
     echo "source /ptam_ws/devel/setup.bash" >> /svo_bashrc

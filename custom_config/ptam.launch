@@ -1,9 +1,11 @@
 <launch>
     <node name="ptam" pkg="ptam" type="ptam" clear_params="true" output="screen">
-	    <remap from="image" to="$(optenv IMAGE /usb_cam/image_raw)" />
+	    <remap from="image" to="$(optenv IMAGE /usb_cam/image_mono)" />
         <remap from="pose" to="pose"/>
 	    <rosparam file="$(find ptam)/PtamFixParams.yaml"/>
     </node>
+    <!-- image_proc to get monochrome image from camera -->
+    <node name="image_proc" pkg="image_proc" type="image_proc" ns="usb_cam"/>
     <node pkg="rqt_reconfigure" type="rqt_reconfigure" name="rqt_reconfigure"/>
 </launch>
 
