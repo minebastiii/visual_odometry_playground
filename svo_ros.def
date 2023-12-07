@@ -1,25 +1,24 @@
 Bootstrap: localimage
-From: ros_base.sif
+From: ../ros_base.sif
 
 %files
     # fixed files
-    
     # rpg_svo
-    ./fixed_files/rpg_svo/rqt_svo/rqt_svo /rqt_svo
-    ./fixed_files/rpg_svo/rqt_svo/svo_widget.py /svo_widget.py
-    ./fixed_files/rpg_svo/sparse_img_align.cpp /sparse_img_align.cpp
-    ./fixed_files/rpg_svo/test_feature_detection.cpp /test_feature_detection.cpp
-    ./fixed_files/rpg_svo/visualizer.cpp /visualizer.cpp
+    ../fixed_files/rpg_svo/rqt_svo/rqt_svo /rqt_svo
+    ../fixed_files/rpg_svo/rqt_svo/svo_widget.py /svo_widget.py
+    ../fixed_files/rpg_svo/sparse_img_align.cpp /sparse_img_align.cpp
+    ../fixed_files/rpg_svo/test_feature_detection.cpp /test_feature_detection.cpp
+    ../fixed_files/rpg_svo/visualizer.cpp /visualizer.cpp
 
     # rpg_vikit
-    ./fixed_files/rpg_vikit/homography.cpp /homography.cpp
-    ./fixed_files/rpg_vikit/img_align.cpp /img_align.cpp
-    ./fixed_files/rpg_vikit/pinhole_camera.cpp /pinhole_camera.cpp
-    ./fixed_files/rpg_vikit/output_helper.cpp /output_helper.cpp
+    ../fixed_files/rpg_vikit/homography.cpp /homography.cpp
+    ../fixed_files/rpg_vikit/img_align.cpp /img_align.cpp
+    ../fixed_files/rpg_vikit/pinhole_camera.cpp /pinhole_camera.cpp
+    ../fixed_files/rpg_vikit/output_helper.cpp /output_helper.cpp
 
     # custom configs
-    ./custom_config/svo.launch /svo.launch
-    ./custom_config/camera_pinhole.yaml /camera_pinhole.yaml
+    ../custom_config/svo.launch /svo.launch
+    ../custom_config/camera_pinhole.yaml /camera_pinhole.yaml
 
 %post
     # install sopuhs

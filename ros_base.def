@@ -7,7 +7,7 @@ From: osrf/ros:noetic-desktop-full
 
 %files
     # fixed files
-    ./fixed_files/sophus/so2.cpp /so2.cpp
+    ../fixed_files/sophus/so2.cpp /so2.cpp
 
 %post
     # update

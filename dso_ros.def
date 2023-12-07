@@ -1,0 +1,69 @@
+Bootstrap: localimage
+From: ../ros_base.sif
+
+%files
+    # fixed files
+    # pangolin
+    ../fixed_files/pangolin/install_prerequisites.sh /install_prerequisites.sh
+
+    # custom config
+
+%post
+    # update
+    apt-get -y update
+    apt-get -y upgrade
+
+    # dependencies (libsuitesparse-dev and libopencv-dev already installed in ros_base.def)
+    apt-get -y  install libeigen3-dev libboost-all-dev 
+
+    # create workspace
+    mkdir /dso_ws
+
+    # install pangolin
+    cd /workspace
+    # Clone Pangolin along with it's submodules
+    git clone --recursive https://github.com/stevenlovegrove/Pangolin.git
+    cd Pangolin
+    # Install dependencies with pangolin provided and fixed script
+    rm ./scripts/install_prerequisites.sh
+    cp /install_prerequisites.sh ./scripts/install_prerequisites.sh
+    rm /install_prerequisites.sh
+    chmod +x ./scripts/install_prerequisites.sh
+    ./scripts/install_prerequisites.sh -m apt all
+    # Configure and build
+    cmake -B build
+    cmake --build build -j 16
+    # GIVEME THE PYTHON STUFF!!!! (Check the output to verify selected python version)
+    cmake --build build -t pypangolin_pip_install -j16
+    cd build
+    make install
+
+    # install ziplib (to use zipped datasets)
+    # apt-get -y install zlib1g-dev
+    # cd /dso_ws/dso/thirdparty
+    # tar -zxvf libzip-1.1.1.tar.gz
+    # cd libzip-1.1.1/
+    # ./configure
+    # make
+    # make install
+    # cp lib/zipconf.h /usr/local/include/zipconf.h   # (no idea why that is needed).
+
+    # install dso
+    # clone dso
+    cd /dso_ws
+    git clone https://github.com/JakobEngel/dso.git
+    # build dso
+    cd /dso_ws/dso
+	mkdir build
+	cd build
+	#cmake ..
+	#make -j16
+
+    # custom .bashrc
+    echo "source /ptam_ws/devel/setup.bash" >> /svo_bashrc
+
+%runscript
+    bash --rcfile /svo_bashrc
+
+%labels
+    Author Bastian Zumbusch

@@ -1,0 +1,1 @@
+apptainer build --sandbox ../dso/ ../dso_ros.def

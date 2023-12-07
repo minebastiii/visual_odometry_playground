@@ -1,22 +1,22 @@
 Bootstrap: localimage
-From: ros_base.sif
+From: ../ros_base.sif
 
 %files
     # fixed files
     # rqt_ptam
-    ./fixed_files/ethzasl_ptam/rqt_ptam/CMakeLists.txt /CMakeLists.txt
+    ../fixed_files/ethzasl_ptam/rqt_ptam/CMakeLists.txt /CMakeLists.txt
     # ptam
-    ./fixed_files/ethzasl_ptam/ptam/AstDetector.h /AstDetector.h
-    ./fixed_files/ethzasl_ptam/ptam/Tracker.cc /Tracker.cc
-    ./fixed_files/ethzasl_ptam/ptam/System.cc /System.cc
-    ./fixed_files/ethzasl_ptam/ptam/RemotePtam.cpp /RemotePtam.cpp
-    ./fixed_files/ethzasl_ptam/ptam/agast_corner_detect.h /agast_corner_detect.h
+    ../fixed_files/ethzasl_ptam/ptam/AstDetector.h /AstDetector.h
+    ../fixed_files/ethzasl_ptam/ptam/Tracker.cc /Tracker.cc
+    ../fixed_files/ethzasl_ptam/ptam/System.cc /System.cc
+    ../fixed_files/ethzasl_ptam/ptam/RemotePtam.cpp /RemotePtam.cpp
+    ../fixed_files/ethzasl_ptam/ptam/agast_corner_detect.h /agast_corner_detect.h
     # libcvd
-    ./fixed_files/ethzasl_ptam/libcvd/Makefile /Makefile
-    ./fixed_files/ethzasl_ptam/libcvd/glwindow.cc /glwindow.cc
+    ../fixed_files/ethzasl_ptam/libcvd/Makefile /Makefile
+    ../fixed_files/ethzasl_ptam/libcvd/glwindow.cc /glwindow.cc
 
     # custom config
-    ./custom_config/ptam.launch /ptam.launch
+    ../custom_config/ptam.launch /ptam.launch
 
 %post
     # install qt4 and uninstall qt5

@@ -1,1 +1,0 @@
-apptainer run --writable svo
