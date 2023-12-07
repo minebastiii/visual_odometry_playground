@@ -54,10 +54,10 @@ From: ../ros_base.sif
     git clone https://github.com/JakobEngel/dso.git
     # build dso
     cd /dso_ws/dso
-	mkdir build
-	cd build
-	#cmake ..
-	#make -j16
+    mkdir build
+    cd build
+    #cmake ..
+    #make -j16
 
     # custom .bashrc
     echo "source /ptam_ws/devel/setup.bash" >> /svo_bashrc
