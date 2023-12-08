@@ -32,7 +32,7 @@ From: osrf/ros:noetic-desktop-full
     rm /so2.cpp
     mkdir build && cd build
     cmake ..
-    make -j 8
+    make -j ${nproc}
 
     # clone and compile fast
     cd /workspace
@@ -40,7 +40,7 @@ From: osrf/ros:noetic-desktop-full
     cd fast
     mkdir build && cd build
     cmake ..
-    make -j 8
+    make -j ${nproc}
 
     # install usb_cam
     apt-get install -y ros-noetic-usb-cam
