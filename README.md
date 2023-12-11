@@ -9,6 +9,11 @@ The used ROS version is ROS Noetic from the [DockerHub](https://hub.docker.com/l
 2. [PTAM] parallel tracking and mapping ([Github](https://github.com/ethz-asl/ethzasl_ptam))
 3. [DSO] direct sparse odometry ([Github](https://github.com/JakobEngel/dso))
 
+## Dependencies
+
+1. Linux System
+2. [Apptainer](https://apptainer.org/)
+
 ## Build and start apptainer images
 
 The simplest way to start with all available algorithms is the provided install_all script.

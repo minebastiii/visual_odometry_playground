@@ -10,6 +10,9 @@ From: ../ros_base.sif
 
     # custom config
 
+%environment
+    export DSO_PATH=/workspace/dso
+
 %post
     # update
     apt-get -y update
@@ -41,7 +44,7 @@ From: ../ros_base.sif
     # install dso
     # clone dso
     cd /workspace
-    git clone https://github.com/JakobEngel/dso.git
+    git clone --depth 1 https://github.com/JakobEngel/dso.git
     # fix files and build dso
     cd /workspace/dso
     rm src/IOWrapper/OpenCV/ImageRW_OpenCV.cpp
@@ -54,9 +57,16 @@ From: ../ros_base.sif
 
     # add ros compatibility
     mkdir /dso_ws
+    cd /dso_ws
+    catkin config --init --mkdirs --extend /opt/ros/noetic --cmake-args -DCMAKE_BUILD_TYPE=Release -DEIGEN3_INCLUDE_DIR=/usr/include/eigen3 -DSophus_DIR=/workspace/Sophus/build -DDSO_PATH=/workspace/dso
+    #catkin init
+    cd src
+    git clone --depth 1 -b catkin https://github.com/JakobEngel/dso_ros.git
+    cd ..
+    catkin build
 
     # custom .bashrc
-    echo "source /ptam_ws/devel/setup.bash" >> /svo_bashrc
+    echo "source /dso_ws/devel/setup.bash" >> /svo_bashrc
 
 %runscript
     bash --rcfile /svo_bashrc

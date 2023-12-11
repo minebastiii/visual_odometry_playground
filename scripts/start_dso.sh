@@ -1,1 +1,1 @@
-apptainer run --writable ../dso
+apptainer run --bind /mnt:/mnt --writable ../dso
