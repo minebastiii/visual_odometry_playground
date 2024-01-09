@@ -8,8 +8,6 @@ From: ../ros_base.sif
     # dso
     ../fixed_files/dso/ImageRW_OpenCV.cpp /ImageRW_OpenCV.cpp
 
-    # custom config
-
 %environment
     export DSO_PATH=/workspace/dso
 
@@ -27,7 +25,6 @@ From: ../ros_base.sif
     git clone --recursive --depth 1 --branch v0.6 https://github.com/stevenlovegrove/Pangolin.git
     cd Pangolin
     # Install dependencies with pangolin provided and fixed script from newer pangolin version
-    #rm ./scripts/install_prerequisites.sh
     mkdir scripts
     cp /install_prerequisites.sh ./scripts/install_prerequisites.sh
     rm /install_prerequisites.sh
@@ -36,8 +33,6 @@ From: ../ros_base.sif
     # Configure and build
     cmake -B build
     cmake --build build -j ${nproc}
-    # GIVEME THE PYTHON STUFF!!!! (Check the output to verify selected python version)
-    #cmake --build build -t pypangolin_pip_install -j16
     cd build
     make install
 
@@ -59,7 +54,6 @@ From: ../ros_base.sif
     mkdir /dso_ws
     cd /dso_ws
     catkin config --init --mkdirs --extend /opt/ros/noetic --cmake-args -DCMAKE_BUILD_TYPE=Release -DEIGEN3_INCLUDE_DIR=/usr/include/eigen3 -DSophus_DIR=/workspace/Sophus/build -DDSO_PATH=/workspace/dso
-    #catkin init
     cd src
     git clone --depth 1 -b catkin https://github.com/JakobEngel/dso_ros.git
     cd ..

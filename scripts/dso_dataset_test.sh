@@ -1,7 +1,7 @@
 /workspace/dso/build/bin/dso_dataset \
-	files=../testdata/visual_odometry_testdata/sequence_21/images.zip \
-	calib=../testdata/visual_odometry_testdata/sequence_21/camera.txt \
-	gamma=../testdata/visual_odometry_testdata/sequence_21/pcalib.txt \
-	vignette=../testdata/visual_odometry_testdata/sequence_21/vignette.png \
+	files=../testdata/visual_odometry_testdata/sequence_42/images.zip \
+	calib=../testdata/visual_odometry_testdata/sequence_42/camera.txt \
+	gamma=../testdata/visual_odometry_testdata/sequence_42/pcalib.txt \
+	vignette=../testdata/visual_odometry_testdata/sequence_42/vignette.png \
 	preset=0 \
-	mode=0
+	mode=0 

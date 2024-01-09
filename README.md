@@ -63,10 +63,23 @@ chmod +x start_svo.sh
 
 ## How to use algorithms within compiled containers
 ### 1. SVO
+#### Start SVO live with ROS
 ToDo
 
 ### 2. PTAM
+#### Start PTAM live with ROS
 ToDo
 
 ### 3. DSO
+#### Testdata
+ToDo
+
+#### Start DSO on testdata
+ToDo
+
+#### Start DSO live with ROS
+ToDo
+
+## More information
+### Calibrate camera
 ToDo
