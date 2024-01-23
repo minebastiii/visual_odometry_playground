@@ -21,11 +21,11 @@ To use it simply give the script executable rights and execute it. You can find 
 in the scripts folder, called install_all.sh.
 
 1. Give execute rights
-```
+```sh
 chmod +x install_all.sh
 ```
 2. execute script
-```
+```sh
 ./install_all.sh
 ```
 
@@ -36,11 +36,11 @@ ROS Noetic installation together with dependencies used across the algorithms. T
 to use the provided script (found in scripts folder) :
 
 1. Give execute rigths
-```
+```sh
 chmod +x install_ros_base.sh
 ```
 2. execute script
-```
+```sh
 ./install_ros_base.sh
 ```
 
@@ -53,33 +53,79 @@ To run one of the installed containers just use the corresponding start_\<algo\>
 of the available in the scripts folder. To run SVO fro example :
 
 1. Give execute rigths (only one time needed if install_all.sh script isnt used before)
-```
+```sh
 chmod +x start_svo.sh
 ```
-2. execute script
-```
+2. execute script to start container
+```sh
 ./start_svo.sh
 ```
 
+In the corresponding containers you can do the following :
+
 ## How to use algorithms within compiled containers
+
+1. start roscore
+```sh
+roscore
+```
+2. Continue with container specific commands :
+
 ### 1. SVO
 #### Start SVO live with ROS
-ToDo
+
+1. configure usb_cam.launch in /opt/ros/noetic/share/usb_cam/launch/usb_cam-test.launch and corresponsing configs
+2. start usb_cam
+```sh
+roslaunch usb_cam usb_cam-test.launch
+```
+3. configure svo.launch in /svo_ws/src/rpg_svo/rqt_svo/src/rqt_svo/svo.launch
+4. start svo, svo gui and rviz
+```sh
+roslaunch rqt_svo svo.launch
+```
 
 ### 2. PTAM
 #### Start PTAM live with ROS
 ToDo
 
 ### 3. DSO
+
+- [ROS wrapper GitHub](https://github.com/JakobEngel/dso_ros)
+
 #### Testdata
-ToDo
+
+Testdata used is the [Monocular Visual Odometry Dataset](https://cvg.cit.tum.de/data/datasets/mono-dataset?redirect=1).
+For more information see [this paper](https://cvg.cit.tum.de/_media/spezial/bib/engel2016monodataset.pdf).
 
 #### Start DSO on testdata
-ToDo
+
+To start DSO run following command : 
+```sh
+/workspace/dso/build/bin/dso_dataset \
+	files=../testdata/visual_odometry_testdata/<sequence_number>/images.zip \
+	calib=../testdata/visual_odometry_testdata/<sequence_number>/camera.txt \
+	gamma=../testdata/visual_odometry_testdata/<sequence_number>/pcalib.txt \
+	vignette=../testdata/visual_odometry_testdata/<sequence_number>/vignette.png \
+	preset=0 \
+	mode=0 
+```
+
+Substitute the <sequence_number> with the corresponding sequence number from the dataset e.g. "sequence_42".
+The testdata needs to be in the "testdata" folder in the root of this project.
+
+Further information :
+- [Dataset format](https://github.com/JakobEngel/dso?tab=readme-ov-file#31-dataset-format)
+- [Commandline options](https://github.com/JakobEngel/dso?tab=readme-ov-file#32-commandline-options)
 
 #### Start DSO live with ROS
 ToDo
 
 ## More information
 ### Calibrate camera
-ToDo
+
+- See [this paper](https://arxiv.org/pdf/1607.02555.pdf) for a photometrically calibrated benchmark for monocular visual odometry
+- [Camera calibration GitHub](https://github.com/uzh-rpg/rpg_svo/wiki/Camera-Calibration)
+- [Create photometric calibration like TUM-Vision Mono Dataset](https://github.com/tum-vision/mono_dataset_code)
+- [Rolling shutter correction](https://github.com/OpenDroneMap/RSCalibration)
+- [ROS Rolling shutter correction](https://github.com/ethz-asl/kalibr/wiki/Rolling-Shutter-Camera-calibration)
