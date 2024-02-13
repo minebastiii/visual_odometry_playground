@@ -1,0 +1,84 @@
+Bootstrap: localimage
+From: ../ros_base.sif
+
+%files
+    # fixed files
+    # pangolin
+    ../fixed_files/pangolin/install_prerequisites.sh /install_prerequisites.sh
+    # orb_slam3_ros_wrapper
+    ../fixed_files/orb_slam3/orb_slam3_ros_wrapper/CMakeLists.txt /CMakeLists.txt
+
+#%environment
+#    export DSO_PATH=/workspace/dso
+
+%post
+    # update
+    apt-get -y update
+    apt-get -y upgrade
+
+    # dependencies (libsuitesparse-dev and libopencv-dev already installed in ros_base.def)
+    apt-get -y  install libeigen3-dev libboost-all-dev unzip ros-noetic-hector-trajectory-server
+
+    # install pangolin
+    cd /workspace
+    # Clone Pangolin along with it's submodules
+    git clone --recursive --depth 1 --branch v0.6 https://github.com/stevenlovegrove/Pangolin.git
+    cd Pangolin
+    # Install dependencies with pangolin provided and fixed script from newer pangolin version
+    mkdir scripts
+    cp /install_prerequisites.sh ./scripts/install_prerequisites.sh
+    rm /install_prerequisites.sh
+    chmod +x ./scripts/install_prerequisites.sh
+    ./scripts/install_prerequisites.sh -m apt all
+    # Configure and build
+    cmake -B build
+    cmake --build build -j ${nproc}
+    cd build
+    make install
+
+    # install opencv version 4.4
+    cd /workspace
+    mkdir opencv
+    cd opencv
+    wget -O opencv.zip https://github.com/opencv/opencv/archive/4.4.0.zip
+    wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.4.0.zip
+    unzip opencv.zip
+    unzip opencv_contrib.zip
+    rm opencv.zip
+    rm opencv_contrib.zip
+    mkdir -p build && cd build
+    cmake -DOPENCV_EXTRA_MODULES_PATH=../opencv_contrib-4.4.0/modules ../opencv-4.4.0
+    cmake --build . -j 12
+    make install
+
+    # clone orb_slam repo
+    cd /workspace
+    git clone --depth 1 https://github.com/UZ-SLAMLab/ORB_SLAM3.git
+
+    # install DBoW2, sophus and g2o from thirdparty folder and ORB_SLAM3
+    cd /workspace/ORB_SLAM3
+    chmod +x build.sh
+    ./build.sh
+
+    # initialize catkin workspace
+    mkdir /orb_slam3_ws && cd /orb_slam3_ws
+    catkin config --init --mkdirs --extend /opt/ros/noetic --cmake-args -DCMAKE_BUILD_TYPE=Release -DEIGEN3_INCLUDE_DIR=/usr/include/eigen3 -DSophus_DIR=/workspace/Sophus/build
+
+    # install orb_slam_ros_wrapper
+    mkdir src && cd src
+    git clone --depth 1 https://github.com/thien94/orb_slam3_ros_wrapper.git
+    cd orb_slam3_ros_wrapper
+    rm CMakeLists.txt
+    cp /CMakeLists.txt .
+    rm /CMakeLists.txt
+    cd /orb_slam3_ws
+    catkin build
+
+    # custom .bashrc
+    echo "source /orb_slam3_ws/devel/setup.bash" >> /svo_bashrc
+
+%runscript
+    bash --rcfile /svo_bashrc
+
+%labels
+    Author Bastian Zumbusch

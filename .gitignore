@@ -1,6 +1,7 @@
 /svo/*
 /ptam/*
 /dso/*
+/orb_slam3/*
 /testdata/*
 *.sif
 *.code-workspace
