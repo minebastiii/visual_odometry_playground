@@ -65,7 +65,7 @@ From: ../ros_base.sif
     catkin config --init --mkdirs --extend /opt/ros/noetic --cmake-args -DCMAKE_BUILD_TYPE=Release -DEIGEN3_INCLUDE_DIR=/usr/include/eigen3 -DSophus_DIR=/workspace/Sophus/build
 
     # install orb_slam_ros_wrapper
-    mkdir src && cd src
+    cd /orb_slam3_ws/src
     git clone --depth 1 https://github.com/thien94/orb_slam3_ros_wrapper.git
     cd orb_slam3_ros_wrapper
     rm CMakeLists.txt
