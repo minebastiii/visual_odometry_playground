@@ -17,7 +17,7 @@ From: ../ros_base.sif
     apt-get -y upgrade
 
     # dependencies (libsuitesparse-dev and libopencv-dev already installed in ros_base.def)
-    apt-get -y  install libeigen3-dev libboost-all-dev unzip ros-noetic-hector-trajectory-server
+    apt-get -y install libeigen3-dev libboost-all-dev unzip ros-noetic-hector-trajectory-server
 
     # install pangolin
     cd /workspace
@@ -47,7 +47,7 @@ From: ../ros_base.sif
     rm opencv.zip
     rm opencv_contrib.zip
     mkdir -p build && cd build
-    cmake -DOPENCV_EXTRA_MODULES_PATH=../opencv_contrib-4.4.0/modules ../opencv-4.4.0
+    cmake -DWITH_GTK=OFF -DOPENCV_EXTRA_MODULES_PATH=../opencv_contrib-4.4.0/modules ../opencv-4.4.0
     cmake --build . -j 12
     make install
 
