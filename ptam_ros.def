@@ -34,6 +34,8 @@ From: ../ros_base.sif
     # install ptam
     cd src
     git clone https://github.com/ethz-asl/ethzasl_ptam
+    cd /ptam_ws/src/ethzasl_ptam
+    git reset --hard e761e80
 
     # fix files
     # rqt_ptam

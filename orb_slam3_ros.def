@@ -54,9 +54,11 @@ From: ../ros_base.sif
     # clone orb_slam repo
     cd /workspace
     git clone --depth 1 https://github.com/UZ-SLAMLab/ORB_SLAM3.git
+    cd /workspace/ORB_SLAM3
+    git reset --hard 4452a3c
 
     # install DBoW2, sophus and g2o from thirdparty folder and ORB_SLAM3
-    cd /workspace/ORB_SLAM3
+    # cd /workspace/ORB_SLAM3
     chmod +x build.sh
     ./build.sh
 
@@ -68,6 +70,7 @@ From: ../ros_base.sif
     cd /orb_slam3_ws/src
     git clone --depth 1 https://github.com/thien94/orb_slam3_ros_wrapper.git
     cd orb_slam3_ros_wrapper
+    git reset --hard b707ff2
     rm CMakeLists.txt
     cp /CMakeLists.txt .
     rm /CMakeLists.txt

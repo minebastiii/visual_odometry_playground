@@ -42,6 +42,7 @@ From: ../ros_base.sif
     git clone --depth 1 https://github.com/JakobEngel/dso.git
     # fix files and build dso
     cd /workspace/dso
+    git reset --hard 7b0c99f
     rm src/IOWrapper/OpenCV/ImageRW_OpenCV.cpp
     cp /ImageRW_OpenCV.cpp src/IOWrapper/OpenCV/ImageRW_OpenCV.cpp
     rm /ImageRW_OpenCV.cpp
@@ -56,7 +57,9 @@ From: ../ros_base.sif
     catkin config --init --mkdirs --extend /opt/ros/noetic --cmake-args -DCMAKE_BUILD_TYPE=Release -DEIGEN3_INCLUDE_DIR=/usr/include/eigen3 -DSophus_DIR=/workspace/Sophus/build -DDSO_PATH=/workspace/dso
     cd src
     git clone --depth 1 -b catkin https://github.com/JakobEngel/dso_ros.git
-    cd ..
+    cd /dso_ws/src/dso_ros
+    git reset --hard 2159e23
+    cd /dso_ws
     catkin build
 
     # custom .bashrc

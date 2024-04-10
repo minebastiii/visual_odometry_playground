@@ -34,7 +34,13 @@ From: ../ros_base.sif
     catkin config --init --mkdirs --extend /opt/ros/noetic --cmake-args -DCMAKE_BUILD_TYPE=Release -DEIGEN3_INCLUDE_DIR=/usr/include/eigen3 -DSophus_DIR=/workspace/Sophus/build
     cd src
     git clone https://github.com/uzh-rpg/rpg_vikit.git
+    cd /svo_ws/src/rpg_vikit
+    git reset --hard 10871da
+    cd /svo_ws/src
     git clone https://github.com/uzh-rpg/rpg_svo.git
+    cd /svo_ws/src/rpg_svo
+    git reset --hard d616106
+
     mkdir /svo_ws/build
     mkdir /svo_ws/logs
 

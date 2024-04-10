@@ -38,6 +38,7 @@ From: osrf/ros:noetic-desktop-full
     cd /workspace
     git clone https://github.com/uzh-rpg/fast.git
     cd fast
+    git reset --hard 1153981
     mkdir build && cd build
     cmake ..
     make -j ${nproc}
