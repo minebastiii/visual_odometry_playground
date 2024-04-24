@@ -5,3 +5,4 @@
 /testdata/*
 *.sif
 *.code-workspace
+*.ipynb_checkpoints
