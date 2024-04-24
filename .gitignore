@@ -3,6 +3,7 @@
 /dso/*
 /orb_slam3/*
 /testdata/*
+.ipynb_checkpoints/*
+/python/.ipynb_checkpoints/*
 *.sif
 *.code-workspace
-*.ipynb_checkpoints
